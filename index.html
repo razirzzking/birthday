@@ -50,10 +50,18 @@
 
         .photo-gallery {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 20px;
             margin: 20px 10%;
+            text-align: center;
+        }
+
+        .photo-gallery .gallery-heading {
+            width: 100%;
+            font-size: 1.8em;
+            color: #ff6f91;
+            margin-bottom: 20px;
         }
 
         .photo-gallery img {
@@ -80,12 +88,29 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
+        #video-section {
+            display: none;
+            margin: 40px auto;
+            width: 80%;
+        }
+
+        #challenge-section {
+            display: none;
+            margin: 40px auto;
+            width: 80%;
+            text-align: center;
+        }
+
         footer {
             background-color: #ff6f91;
             padding: 20px;
             color: #fff;
             font-size: 1em;
             font-weight: 600;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -102,15 +127,37 @@
     </div>
 
     <div class="photo-gallery">
-        <h2>Our Memories</h2>
-        <img src="1.jpg" alt="Memory 1">
-        <img src="2.jpg" alt="Memory 2">
-        <img src="3.jpg" alt="Memory 3">
+        <h2 class="gallery-heading">Our Memories</h2>
+        <img src="/Users/Photos/1.jpg" alt="Memory 1">
+        <img src="/Users/Photos/2.jpg" alt="Memory 2">
+        <img src="/Users/Photos/3.jpg" alt="Memory 3">
     </div>
 
     <div class="countdown">
         <h2>Countdown to the Best Day!</h2>
         <p id="countdown"></p>
+    </div>
+    
+    <div id="video-section">
+        <video width="100%" controls>
+            <source src="/Users/Photos/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <img id="hbd-photo" src="/Users/Photos/hbd.png" alt="Happy Birthday Image" 
+             style="margin-top: 80px; margin-bottom: 80px; width: 100%; max-width: 500px; display: block; 
+                    margin-left: auto; margin-right: auto; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
+                    border-radius: 12px;">
+    </div> 
+
+    <div id="challenge-section">
+        <h2>Secret Challenge</h2>
+        <p>To unlock your secret gift, answer this question:</p>
+        <p><strong>What is the favourite thing I like about you?</strong></p>
+        <input id="challenge-answer" type="text" placeholder="Your answer" style="padding: 10px; font-size: 1.2em; margin-bottom: 20px;">
+        <button onclick="checkAnswer()" style="padding: 10px 20px; background-color: #ff6f91; color: #fff; font-size: 1em; cursor: pointer;">Submit</button>
+        <p id="success-message" class="hidden" style="margin-top: 20px; font-size: 1.2em; color: #28a745;">
+            Correct! Here’s your surprise gift: <a href="/Users/Photos/secret.pdf" download style="color: #ff6f91; font-weight: bold;">Download PDF</a>
+        </p>
     </div>
 
     <footer>
@@ -119,23 +166,34 @@
 
     <script>
         const birthdayDate = new Date("Nov 16, 2024 00:00:00").getTime();
-
+    
         const countdownFunction = setInterval(function() {
             const now = new Date().getTime();
             const distance = birthdayDate - now;
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000)) / 1000);
 
             document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
             if (distance < 0) {
                 clearInterval(countdownFunction);
-                document.getElementById("countdown").innerHTML = "Happy Birthday, Chundhari!";
+                document.getElementById("countdown").innerHTML = "Happy Birthday, Chakkara Ponneeee!";
+                document.getElementById("video-section").style.display = "block";
+                document.getElementById("challenge-section").style.display = "block";
             }
         }, 1000);
+
+        function checkAnswer() {
+            const answer = document.getElementById("challenge-answer").value.toLowerCase();
+            if (answer === "chothgal" || answer === "shothgal") {
+                document.getElementById("success-message").classList.remove("hidden");
+            } else {
+                alert("Oops! Try again, Shundharyee! Hint: Chundharan eppolm pidch kalikkndee..");
+            }
+        }
     </script>
 
 </body>
