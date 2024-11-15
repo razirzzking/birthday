@@ -165,26 +165,28 @@
     </footer>
 
     <script>
-        const birthdayDate = new Date("Nov 16, 2024 00:00:00").getTime();
-    
-        const countdownFunction = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = birthdayDate - now;
+       const birthdayDate = new Date("Nov 16, 2024 00:00:00").getTime();
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000)) / 1000);
+const countdownFunction = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = birthdayDate - now;
 
-            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (distance >= 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            if (distance < 0) {
-                clearInterval(countdownFunction);
-                document.getElementById("countdown").innerHTML = "Happy Birthday, Chakkara Ponneeee!";
-                document.getElementById("video-section").style.display = "block";
-                document.getElementById("challenge-section").style.display = "block";
-            }
-        }, 1000);
+        // Update the countdown display
+        document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    } else {
+        // Stop the countdown and display the birthday message
+        clearInterval(countdownFunction);
+        document.getElementById("countdown").innerHTML = "Happy Birthday, Chakkara Ponneeee!";
+        document.getElementById("video-section").style.display = "block";
+        document.getElementById("challenge-section").style.display = "block";
+    }
+}, 1000);
 
         function checkAnswer() {
             const answer = document.getElementById("challenge-answer").value.toLowerCase();
